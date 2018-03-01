@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ssm.mapper.UserMapper">
+
+    <!--根据id删除用户-->
+    <delete id="delete" parameterType="ssm.model.User">
+                delete from user where id= #{id}
+        </delete>
+
+    <!--根据id获取用户-->
+    <select id="get" parameterType="_int" resultType="ssm.model.User">
+                select * from   user  where id= #{id}
+        </select>
+
+
+    <!--更新用户-->
+    <update id="update" parameterType="ssm.model.User">
+                update user set name=#{name},password = #{password},
+               tel = #{tel},headimg = #{headimg} ,create_time= #{create_time},update_time = #{update_time},
+               sex  = #{sex},description = #{description}
+                 where id= #{id}
+        </update>
+
+
+    <!--查询全部用户-->
+    <select id="list" resultType="ssm.model.User">
+                select * from  user order by update_time DESC
+        </select>
+
+
+    <!--根据用户名密码查询用户-->
+    <select id="findUserByNameAndPwd" parameterType="map" resultType="ssm.model.User">
+                select name,password from user where name = #{name} and password = #{password}
+        </select>
+
+
+    <!--根据手机号码查询用户-->
+    <select id="getUserByPhoneNum" parameterType="map" resultType="ssm.model.User">
+        select * from user where tel = #{tel}
+    </select>
+
+
+    <!--根据手机号码和密码查询用户-->
+    <select id="getUserByPhone" parameterType="map" resultType="ssm.model.User">
+                select * from user where tel = #{tel} and password = #{password}
+        </select>
+
+
+
+    <!--新增用户-->
+    <insert id="save" parameterType="ssm.model.User">
+                insert into user(name,password,tel,headimg,create_time,update_time,sex,description)
+                values (#{name},#{password},#{tel},#{headimg},#{create_time},#{update_time},#{sex},#{description})
+        </insert>
+
+
+</mapper>

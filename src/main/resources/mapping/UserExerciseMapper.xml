@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ssm.mapper.UserExerciseMapper">
+
+    <!--插入一条用户的练习记录-->
+    <insert id="save" parameterType="ssm.model.UserExercise">
+        insert into record_exercise(sid,eid,score,finish)
+        values (#{sid},#{eid},#{score},#{finish})
+    </insert>
+
+
+    <!--根据id删除记录-->
+    <delete id="delete" parameterType="ssm.model.UserExercise">
+        delete from record_exercise where id= #{id}
+    </delete>
+
+    <!--根据id获取记录-->
+    <select id="get" parameterType="_int" resultType="ssm.model.UserExercise">
+        select * from   record_exercise  where id= #{id}
+    </select>
+
+
+    <!--更新记录-->
+    <update id="update" parameterType="ssm.model.UserExercise">
+        update record_exercise set sid=#{sid},eid = #{eid},score=#{score},finish = #{finish}
+        where id= #{id}
+    </update>
+
+
+    <!--查询全部练习-->
+    <select id="list" resultType="ssm.model.UserExercise">
+        select * from  record_exercise
+    </select>
+
+    <!--根据用户查找练习记录-->
+    <select id="findbytel" parameterType="map" resultType="ssm.model.UserExercise">
+        select * from record_exercise where sid=(select id from user where tel=#{tel})
+    </select>
+
+    <!--根据课程名称查找用户的练习记录-->
+    <select id="findrecords" parameterType="map" resultType="ssm.model.UserExercise">
+        select d.* from user a,exercise b,lecture c,record_exercise d where a.id=d.sid and c.id=b.lid and b.id=d.eid and a.tel=#{tel} and c.name=#{name}
+    </select>
+
+    <!--根据用户和练习名找到单条记录-->
+    <select id="getrecord" parameterType="map" resultType="ssm.model.UserExercise">
+    select d.* from user a,exercise b,lecture c,record_exercise d where a.id=d.sid and c.id=b.lid and b.id=d.eid and a.tel=#{tel} and b.name=#{name} and c.name=#{lecturename}
+    </select>
+
+</mapper>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ssm.mapper.MessageMapper">
+
+    <!--新增留言-->
+    <insert id="save" parameterType="ssm.model.Message">
+        insert into message(sid,create_time,description)
+        values (#{sid},#{create_time},#{description})
+    </insert>
+
+
+    <!--根据id删除留言-->
+    <delete id="delete" parameterType="ssm.model.Message">
+        delete from message where id= #{id}
+    </delete>
+
+    <!--根据id获取留言-->
+    <select id="get" parameterType="_int" resultType="ssm.model.Message">
+        select * from   message  where id= #{id}
+    </select>
+
+
+    <!--更新留言-->
+    <update id="update" parameterType="ssm.model.Message">
+        update message set sid=#{sid},create_time=#{create_time},description = #{ description}}
+        where id= #{id}
+    </update>
+
+
+    <!--查询全部留言-->
+    <select id="list" resultType="ssm.model.Message">
+        select * from  message
+    </select>
+
+
+</mapper>

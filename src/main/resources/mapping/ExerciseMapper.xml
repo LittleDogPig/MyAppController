@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ssm.mapper.ExerciseMapper">
+
+    <!--新增练习-->
+    <insert id="save" parameterType="ssm.model.Exercise">
+        insert into exercise(lid,description,name,type,answer)
+        values (#{lid},#{description},#{name},#{type},#{answer})
+    </insert>
+
+
+    <!--根据id删除练习-->
+    <delete id="delete" parameterType="ssm.model.Exercise">
+        delete from exercise where id= #{id}
+    </delete>
+
+    <!--根据id获取练习-->
+    <select id="get" parameterType="_int" resultType="ssm.model.Exercise">
+        select * from   exercise  where id= #{id}
+    </select>
+
+
+    <!--更新练习-->
+    <update id="update" parameterType="ssm.model.Exercise">
+        update teacher set lid=#{lid},description = #{ description},name=#{name},typy = #{type},answer=#{answer}
+        where id= #{id}
+    </update>
+
+
+    <!--查询全部练习-->
+    <select id="list" resultType="ssm.model.Exercise">
+        select * from  exercise
+    </select>
+
+    <!--根据课程名称查找练习-->
+    <select id="findbylecturename" parameterType="map" resultType="ssm.model.Exercise">
+        select * from exercise where lid=(select id from lecture where name=#{name})
+    </select>
+
+    <select id="getexercise" parameterType="map" resultType="ssm.model.Exercise">
+        select * from exercise where lid=(select id from lecture where name=#{lecturename}) and name =#{name}
+    </select>
+
+</mapper>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ssm.mapper.PptMapper">
+
+    <!--新增考试-->
+    <insert id="save" parameterType="ssm.model.Ppt">
+        insert into ppt(lid,name,description,answer,url)
+        values (#{lid},#{name},#{description},#{answer},#{url})
+    </insert>
+
+
+    <!--根据id删除考试-->
+    <delete id="delete" parameterType="ssm.model.Ppt">
+        delete from ppt where id= #{id}
+    </delete>
+
+    <!--根据id获取考试-->
+    <select id="get" parameterType="_int" resultType="ssm.model.Ppt">
+        select * from   ppt where id= #{id}
+    </select>
+
+
+    <!--更新考试-->
+    <update id="update" parameterType="ssm.model.Ppt">
+        update ppt set lid = #{lid},name=#{name},
+        description = #{description},
+        answer = #{answer} ,url = #{url}
+        where id= #{id}
+    </update>
+
+
+    <!--查询全部考试-->
+    <select id="list" resultType="ssm.model.Ppt">
+        select * from  ppt
+    </select>
+
+    <!--根据课程名称查找考试-->
+    <select id="findbylname" parameterType="map" resultType="ssm.model.Ppt">
+        select * from ppt where lid=(select id from lecture where name=#{name})
+    </select>
+
+</mapper>

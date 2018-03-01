@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ssm.mapper.LecturecsMapper">
+
+    <!--选课-->
+    <insert id="save" parameterType="ssm.model.Lecturecs">
+        insert into lecturecs(sid,lid,time,exercise,exam,score)
+        values (#{sid},#{lid},#{time},#{exercise},#{exam},#{score})
+    </insert>
+
+
+    <!--退课-->
+    <delete id="delete" parameterType="ssm.model.Lecturecs">
+        delete from lecturecs where id= #{id}
+    </delete>
+
+    <!--获取选课信息-->
+    <select id="get" parameterType="_int" resultType="ssm.model.Lecturecs">
+        select * from   lecturecs  where id= #{id}
+    </select>
+
+
+    <!--更新选课资料-->
+    <update id="update" parameterType="ssm.model.Lecturecs">
+        update lecturecs set sid = #{sid},lid = #{lid},time = #{time},
+        exercise = #{exercise},exam = #{exam},score=#{score}
+        where id= #{id}
+    </update>
+
+
+    <!--查询全部选课记录-->
+    <select id="list" resultType="ssm.model.Lecturecs">
+        select * from  lecturecs
+    </select>
+
+    <!--查询用户所选全部课程-->
+    <select id="finduserchose" parameterType="map" resultType="ssm.model.Lecturecs">
+        select * from lecturecs where sid=(select id from user where tel=#{tel})
+    </select>
+
+    <!--查询用户所选全部课程-->
+    <select id="findrecord" parameterType="map" resultType="ssm.model.Lecturecs">
+        select c.* from user a,lecture b,lecturecs c where a.id=c.sid and b.id=c.lid and a.tel=#{tel} and b.name=#{name}
+    </select>
+
+    <!--查询用户所有完成的课程-->
+    <select id="finishlecture" parameterType="map" resultType="ssm.model.Lecturecs">
+        select * from lecturecs where sid=(select id from user where tel=#{tel} ) and exam='1'
+    </select>
+
+    <!--查询用户所有未完成课程-->
+    <select id="unfinishlecture" parameterType="map" resultType="ssm.model.Lecturecs">
+        select * from lecturecs where sid=(select id from user where tel=#{tel} ) and exam='0'
+    </select>
+</mapper>
