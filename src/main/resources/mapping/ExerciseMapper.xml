@@ -44,6 +44,7 @@
         select * from exercise where lid=(select id from lecture where name=#{lecturename}) and name =#{name}
     </select>
 
+    <!--查找所有有练习的课程-->
     <select id="findexercise" parameterType="map" resultType="ssm.model.Exercise">
        select a.* from lecture a,exercise b where a.id=b.lid and a.name=#{name} group by id
     </select>
