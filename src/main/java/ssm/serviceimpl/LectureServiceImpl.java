@@ -59,6 +59,10 @@ public class LectureServiceImpl extends BaseServiceImpl<Lecture> implements Lect
 
     public String findNameByName(String name){return lectureMapper.findNameByName(name);}
 
+    public List<Lecture> exerciseShow(){return  lectureMapper.exerciseShow();}
+
+    public Lecture exercise( String name){return  lectureMapper.exercise(name);}
+
     @Override
     public Map<String, Object> errorRespMap(Map<String, Object> map, String message) {
         if (map == null) {

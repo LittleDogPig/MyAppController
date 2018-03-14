@@ -31,4 +31,8 @@ public interface LectureService extends BaseService<Lecture>{
     public String findLectureById(int id);
 
     public String findNameByName(String name);
+
+    public List<Lecture> exerciseShow();
+
+    public Lecture exercise( String name);
 }

@@ -6,6 +6,15 @@ public class PptShow implements Serializable {
     private String name;
     private String filename;
     private String url;
+    private int id;
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
+    }
 
     public String getName() {
         return name;

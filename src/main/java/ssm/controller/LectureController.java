@@ -98,6 +98,23 @@ public class LectureController extends BaseController<Lecture>{
     }
 
     @ResponseBody
+    @RequestMapping(value = "deletelecture", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    public Map deletelecture(@Param("name") String name){
+        Lecture lecture=lectureService.findLectureByName(name);
+        int id=lecture.getId();
+        if(lecture==null) return lectureService.errorRespMap(respMap,"error");
+      lectureService.delete(id);
+      Lecture lecture1=lectureService.get(id);
+      if(lecture1==null)
+        {
+            String rt="success";
+            return lectureService.successRespMap(respMap,"删除成功",rt);
+        }
+        else return lectureService.errorRespMap(respMap,"删除失败");
+    }
+
+
+    @ResponseBody
     @RequestMapping(value = "findlecturelikename", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     public Map findlecturelikename(@Param("String") String name){
         List<Lecture> ls=lectureService.getLectureLikeName(name);
@@ -141,6 +158,26 @@ public class LectureController extends BaseController<Lecture>{
             return lectureService.successRespMap(respMap,"success",list);
         }
     }
+
+    @ResponseBody
+    @RequestMapping(value = "getLecture", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    public Map getLecture(@Param("name") String name){
+        Lecture lecture=lectureService.findLectureByName(name);
+
+
+        if(lecture==null){
+            return teacherService.errorRespMap(respMap,"课程不存在");
+        }else {
+            LectureShow lectureShow=new LectureShow();
+            lectureShow.setTeacherName(lectureService.findNameByName(lecture.getName()));
+            lectureShow.setLectureName(lecture.getName());
+            lectureShow.setPictureUrl(lecture.getPictureurl());
+            List<LectureShow> list=new ArrayList<LectureShow>();
+            list.add(lectureShow);
+            return teacherService.successRespMap(respMap,"success",list);
+        }
+    }
+
         protected  String date(String date){
             String week=week(date);
             String time=time(date);

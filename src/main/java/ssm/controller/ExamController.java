@@ -12,6 +12,8 @@ import ssm.model.Teacher;
 import ssm.service.ExamService;
 import ssm.service.LecturecsService;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 
@@ -66,6 +68,51 @@ public class ExamController extends BaseController<Exam>{
 
         return score;
 
+    }
+
+
+    @ResponseBody
+    @RequestMapping(value = "list", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    public Map list(){
+        List<Exam> list=examService.list();
+
+        if(list==null){
+            return examService.errorRespMap(respMap,"error");
+        }else {
+            return examService.successRespMap(respMap,"success",list);
+        }
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "deleteExam", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    public Map deleteExam(@Param("id") int id){
+        Exam exam=examService.get(id);
+
+        if(exam==null) return examService.errorRespMap(respMap,"error");
+       examService.delete(id);
+       Exam exam1=examService.get(id);
+       if(exam1==null)
+            {
+                String rt="success";
+            return examService.successRespMap(respMap,"删除成功",rt);
+        }
+        else return examService.errorRespMap(respMap,"error");
+
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "getExam", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    public Map getExam(@Param("name") String name){
+        Exam exam=examService.findbylname(name);
+
+
+        if(exam==null){
+            return examService.errorRespMap(respMap,"试题不存在");
+        }else {
+            List<Exam> list=new ArrayList<Exam>();
+            list.add(exam);
+            return examService.successRespMap(respMap,"success",list);
+        }
     }
 
 

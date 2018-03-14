@@ -33,6 +33,6 @@ public class ExerciseServiceImpl extends BaseServiceImpl<Exercise> implements Ex
 
     public Exercise getexercise(String lecturename,String name){return  exerciseMapper.getexercise(lecturename,name);}
 
-
+    public Exercise findexercise(String name){return exerciseMapper.findexercise(name);}
 
 }

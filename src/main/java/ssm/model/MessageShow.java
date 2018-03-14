@@ -3,11 +3,20 @@ package ssm.model;
 import java.io.Serializable;
 
 public class MessageShow implements Serializable {
+    int id;
     String headimg;
     String name;
     String description;
     String message;
     String time;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getHeadimg() {
         return headimg;

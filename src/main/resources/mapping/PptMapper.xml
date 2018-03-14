@@ -37,8 +37,13 @@
         select * from  ppt
     </select>
 
-    <!--根据课程名称查找考试-->
+    <!--根据课程名称查找课件-->
     <select id="findbylname" parameterType="map" resultType="ssm.model.Ppt">
+        select * from ppt where lid=(select id from lecture where name=#{name})
+    </select>
+
+    <!--根据课程名称查找考试-->
+    <select id="getPPT" parameterType="map" resultType="ssm.model.Ppt">
         select * from ppt where lid=(select id from lecture where name=#{name})
     </select>
 

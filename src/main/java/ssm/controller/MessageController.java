@@ -68,6 +68,7 @@ public class MessageController extends BaseController<Message>{
         for (int i=0;i<ls.size();i++){
             MessageShow messageShow=new MessageShow();
             user=userService.get(ls.get(i).getSid());
+            messageShow.setId(ls.get(i).getId());
             messageShow.setHeadimg(user.getHeadimg());
             messageShow.setName(user.getName());
             messageShow.setDescription(user.getDescription());
@@ -78,6 +79,25 @@ public class MessageController extends BaseController<Message>{
         if (list==null)
             return messageService.errorRespMap(respMap,"查询失败");
         else return messageService.successRespMap(respMap,"查询成功",list);
+
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "deletetmessage", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    public Map deletetmessage(@Param("id") int id) {
+        Message message=messageService.get(id);
+
+        if (message == null) return messageService.errorRespMap(respMap, "无此留言");
+
+        messageService.delete(id);
+        Message message1=messageService.get(id);
+        if (message1==null)
+        {
+            String rt="success";
+
+            return messageService.successRespMap(respMap, "删除成功",rt);
+        }
+    else return messageService.errorRespMap(respMap, "删除失败");
 
     }
 

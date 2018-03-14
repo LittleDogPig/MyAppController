@@ -32,4 +32,7 @@ public interface LectureMapper extends BaseMapper<Lecture>{
 
     public String findNameByName(String name);
 
+    public List<Lecture> exerciseShow();
+
+    public Lecture exercise(@Param("name") String name);
 }

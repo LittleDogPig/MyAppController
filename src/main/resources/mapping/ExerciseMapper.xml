@@ -44,4 +44,7 @@
         select * from exercise where lid=(select id from lecture where name=#{lecturename}) and name =#{name}
     </select>
 
+    <select id="findexercise" parameterType="map" resultType="ssm.model.Exercise">
+       select a.* from lecture a,exercise b where a.id=b.lid and a.name=#{name} group by id
+    </select>
 </mapper>

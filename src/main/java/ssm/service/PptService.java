@@ -19,4 +19,6 @@ public interface PptService extends BaseService<Ppt>{
 
     public Ppt findbylname(String name);
 
+    public List<Ppt> getPPT( String name);
+
 }

@@ -19,5 +19,5 @@ public interface PptMapper extends BaseMapper<Ppt>{
 
     public Ppt findbylname(@Param("name") String name);
 
-
+    public List<Ppt> getPPT(@Param("name") String name);
 }

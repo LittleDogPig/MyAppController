@@ -72,5 +72,14 @@
         select name from teacher where id=(select tid from lecture where name=#{name} )
     </select>
 
+    <!--查询全部有练习的课程-->
+    <select id="exerciseShow" resultType="ssm.model.Lecture">
+        select a.* from lecture a,exercise b where a.id=b.lid group by id
+    </select>
+
+    <!--查询全部有练习的课程-->
+    <select id="exercise" resultType="ssm.model.Lecture">
+        select a.* from lecture a,exercise b where a.id=b.lid and a.name=#{name} group by id
+    </select>
 
 </mapper>

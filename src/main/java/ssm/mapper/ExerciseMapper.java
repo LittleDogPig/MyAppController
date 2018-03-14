@@ -22,6 +22,8 @@ public interface ExerciseMapper  extends BaseMapper<Exercise>{
 
     public Exercise getexercise(@Param("lecturename") String lecturename,@Param("name") String name);
 
+    public Exercise findexercise(@Param("name") String name);
+
 
 
 

@@ -21,6 +21,7 @@ public interface ExerciseService extends BaseService<Exercise>{
 
     public Exercise getexercise( String lecturename,String name);
 
+    public Exercise findexercise(String name);
 
 
 

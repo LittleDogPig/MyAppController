@@ -19,10 +19,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 @RequestMapping("/user")
@@ -142,6 +139,23 @@ public class UserController extends BaseController<User> {
     }
 
 
+    @ResponseBody
+    @RequestMapping(value = "getuser", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
+    public Map getUser(@Param("tel") String tel) {
+        User user=userService.getUserByPhoneNum(tel);
+
+
+        if (user == null) {
+            return userService.errorRespMap(respMap, "用户不存在");
+        } else {
+            List<User> cs = new ArrayList<User>();
+            cs.add(user);
+
+            return userService.successRespMap(respMap, "success", cs);
+        }
+    }
+
+
     /***
      * 重新设置密码
      * @param oldpsd
@@ -203,6 +217,32 @@ public class UserController extends BaseController<User> {
             return userService.errorRespMap(respMap, "查找失败");
         }
     }
+
+
+    @ResponseBody
+    @RequestMapping(value = "updateUser", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    public Map updateuser(@Param("id") int id,@Param("name") String name, @Param("tel") String tel,@Param("password") String password, @Param("sex") String sex,@Param("description") String description) {
+
+        User user1 = userService.get(id);
+
+        if (user1 != null ) {
+            user1.setName(name);
+            user1.setTel(tel);
+            user1.setPassword(password);
+            user1.setSex(sex);
+            user1.setDescription(description);
+            userService.update(user1);
+            user1 = userService.getUserByPhoneNum(tel);
+            return userService.successRespMap(respMap, "修改成功", user1);
+        } else {
+            return userService.errorRespMap(respMap, "修改失败");
+        }
+    }
+
+
+
+
+
     /*/检查参数是否正确
     private boolean checkParams(User user) {
 

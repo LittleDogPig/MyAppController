@@ -26,6 +26,6 @@ public class PptServiceImpl extends BaseServiceImpl<Ppt> implements PptService{
 
     public Ppt findbylname(String name){return pptMapper.findbylname(name);}
 
-
+    public List<Ppt> getPPT( String name){return  pptMapper.getPPT(name);}
 
 }

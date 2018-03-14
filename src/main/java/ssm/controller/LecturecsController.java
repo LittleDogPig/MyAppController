@@ -37,6 +37,7 @@ public class LecturecsController extends BaseController<Lecturecs>{
             Lecture lecture0=lectureService.findLectureByName(name);
             List<Lecturecs> ls=lecturecsService.finduserchose(tel);
             boolean canbe=false;
+            if(ls.size()==0) canbe=true;
             for (int i=0;i<ls.size();i++)
             {
                 if (lectureService.get(ls.get(i).getLid()).getTime().equals(lecture0.getTime()))

@@ -8,7 +8,7 @@
     <!--新增课程-->
     <insert id="save" parameterType="ssm.model.Teacher">
         insert into teacher(name,sex,email,school,pictureurl,detail,description)
-        values (#{name},#{tid},#{pictureurl},#{time},#{type},#{description},#{detail})
+        values (#{name},#{sex},#{email},#{school},#{pictureurl},#{detail},#{description})
     </insert>
 
 
@@ -23,7 +23,7 @@
     </select>
 
 
-    <!--更新课程-->
+    <!--更新老师-->
     <update id="update" parameterType="ssm.model.Teacher">
         update teacher set name=#{name},sex = #{sex},
         email = #{email} ,school = #{school},pictureurl= #{pictureurl},detail = #{detail},
@@ -37,7 +37,7 @@
         select * from  teacher
     </select>
 
-    <!--查询全部课程-->
+    <!--查询老师-->
     <select id="findteacherbyname" parameterType="map" resultType="ssm.model.Teacher">
         select * from  teacher WHERE name=#{name}
     </select>
